@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [input, setInput] = useState('')
+  const [msg, setMsg] = useState('');
+
+  const getEcho = async (e) => {
+    e.preventDefault();
+    const res = await fetch(`https://digiflow-backend.azurewebsites.net/echo/${input}`);
+    const data = await res.json();
+    console.log(data);
+    setMsg(data.text);
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <br/>
+      <br/>
+      <div className="specialMesage">
+        <h2>{msg !== '' ? msg : 'Write something'}</h2>
+      </div>
+      <form onSubmit={getEcho}>
+        <input type="text" className='echo message' onChange={e => setInput(e.target.value)} value={input}/>
+        <input type="submit"/>
+      </form>
     </div>
   );
 }
