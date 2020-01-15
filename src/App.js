@@ -7,7 +7,7 @@ const App = () => {
 
   const getEcho = async (e) => {
     e.preventDefault();
-    const res = await fetch(`https://digiflow-backend.azurewebsites.net/echo/${input}`);
+    const res = await fetch(`http://digiflow-backend.azurewebsites.net/echo/${input}`);
     const data = await res.json();
     console.log(data);
     setMsg(data.text);
